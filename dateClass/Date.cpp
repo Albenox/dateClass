@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Date.h"
+#include <string>
 using namespace std;
 
 // Constructor
@@ -39,6 +40,27 @@ int Date::lastDay(int m, int y) const {
     else {
         return 28;
     }
+}
+
+// Numeric string output
+string Date::toNumericString() const {
+    return to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+}
+
+// Month to Day to Year output
+string Date::toLongString() const {
+    string months[] = { "", "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December" };
+
+    return months[month] + " " + to_string(day) + ", " + to_string(year);
+}
+
+// Day to Month to Year output
+string Date::toDayFirstString() const {
+    string months[] = { "", "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December" };
+
+    return to_string(day) + " " + months[month] + " " + to_string(year);
 }
 
 // Accessors

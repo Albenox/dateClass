@@ -4,17 +4,17 @@
 // Checks to see if this class is already defined, and if it is, will not define it again
 #ifndef DATE_H
 #define DATE_H
+#include <string>
 using namespace std;
 
 // The class for date that will hold the month, day, and year as ints
 class Date {
-//
 private:
+    // Private variables
     int month;
     int day;
     int year;
 
-//
 public:
     
     // Constructor that sets the initial values to month, day, and year
@@ -35,6 +35,11 @@ public:
     // Function and overloaded function that holds the last day of the month
     int lastDay() const;
     int lastDay(int m, int y) const;
+
+    // Funcitons that output the different types of date in different formats
+    string toNumericString() const;
+    string toLongString() const;
+    string toDayFirstString() const;
 };
 
 // The portion that will not be defined again if it already is, which should be the entire code
