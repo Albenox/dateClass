@@ -13,5 +13,7 @@ Date::Date(int m, int d, int y) {
 // The function that will validate the inputs such as month, day, and year,
 // as well as have the leap year and last day of the month logic
 void Date::setDate(int m, int d, int y) {
-    cout << "WIP";
+    this->month = m;
+    this->day = d;
+    this-> year = y;
 }
