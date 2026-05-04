@@ -4,7 +4,9 @@
 // Checks to see if this class is already defined, and if it is, will not define it again
 #ifndef DATE_H
 #define DATE_H
+
 #include <string>
+#include <iostream>
 using namespace std;
 
 // The class for date that will hold the month, day, and year as ints
@@ -40,6 +42,21 @@ public:
     string toNumericString() const;
     string toLongString() const;
     string toDayFirstString() const;
+
+    // Prefix and postfix increment operators
+    Date& operator++();
+    Date operator++(int);
+
+    // Prefix and postfix decrement operators
+    Date& operator--();
+    Date operator--(int);
+
+    // Subtraction operator
+    int operator-(const Date& other) const;
+
+    // Stream operators
+    friend ostream& operator<<(ostream& out, const Date& date);
+    friend istream& operator>>(istream& in, Date& date);
 };
 
 // The portion that will not be defined again if it already is, which should be the entire code

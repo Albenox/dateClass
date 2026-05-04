@@ -114,3 +114,119 @@ void Date::setDate(int m, int d, int y) {
         this->year = 1900;
     }
 }
+
+// Prefix increment to increase the date by one day and returns the updated object
+Date& Date::operator++() {
+    if (day < lastDay()) {
+        day++;
+    }
+    else {
+        day = 1;
+
+        if (month == 12) {
+            month = 1;
+            year++;
+        }
+        else {
+            month++;
+        }
+    }
+
+    return *this;
+}
+
+// Postfix increment to save the old date, increase by one day, then return the old date
+Date Date::operator++(int) {
+    Date temp = *this;
+    ++(*this);
+    return temp;
+}
+
+// Prefix decrement to decrease the date by one day and return the updated object
+Date& Date::operator--() {
+    if (day > 1) {
+        day--;
+    }
+    else {
+        if (month == 1) {
+            month = 12;
+            year--;
+        }
+        else {
+            month--;
+        }
+
+        day = lastDay();
+    }
+
+    return *this;
+}
+
+// Postfix decrement to save the old date, decrease by one day, then return the old date
+Date Date::operator--(int) {
+    Date temp = *this;
+    --(*this);
+    return temp;
+}
+
+// Allows cout << date
+ostream& operator<<(ostream& out, const Date& date) {
+    out << date.toLongString();
+    return out;
+}
+
+// Allows cin >> date
+istream& operator>>(istream& in, Date& date) {
+    int m, d, y;
+
+    cout << "Enter month: ";
+    in >> m;
+
+    cout << "Enter day: ";
+    in >> d;
+
+    cout << "Enter year: ";
+    in >> y;
+
+    date.setDate(m, d, y);
+
+    return in;
+}
+
+// Subtraction operator to return the number of days between two Date objects
+int Date::operator-(const Date& other) const {
+    int totalDaysThis = 0;
+    int totalDaysOther = 0;
+
+    for (int y = 1; y < this->year; y++) {
+        if (isLeapYear(y)) {
+            totalDaysThis += 366;
+        }
+        else {
+            totalDaysThis += 365;
+        }
+    }
+
+    for (int m = 1; m < this->month; m++) {
+        totalDaysThis += lastDay(m, this->year);
+    }
+
+    totalDaysThis += this->day;
+
+    for (int y = 1; y < other.year; y++) {
+        if (isLeapYear(y)) {
+            totalDaysOther += 366;
+        }
+        else {
+            totalDaysOther += 365;
+        }
+    }
+
+    for (int m = 1; m < other.month; m++) {
+        totalDaysOther += lastDay(m, other.year);
+    }
+
+    totalDaysOther += other.day;
+
+    return totalDaysThis - totalDaysOther;
+}
